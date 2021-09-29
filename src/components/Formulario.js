@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { calcularMarca, obtenerDiferenciaYear, obtenerPlan } from "../helper";
 
-const Formulario = () => {
+const Formulario = ({guardarResumen}) => {
   const [datos, guardarDatos] = useState({
     marca: "",
     year: "",
@@ -33,34 +33,37 @@ const Formulario = () => {
       return;
     }
     guardarError(false);
+    
+    //COTIZACION
+    //como base usaremos 2000 dolares
+    
+    let resultado = 2000
+    
+    //obtener diferencia de años
+    
+    const diferencia = obtenerDiferenciaYear(year)
+    
+    //por cada año restar el 5%
+    resultado -= ((diferencia * 3) * resultado ) / 100
+    
+    //el americano subira un 15%, el europeo un 30% y el asiatico un 5%
+    resultado = calcularMarca(marca) * resultado  
+    
+    //calcular incremento segun plan
+    const incrementoPlan = obtenerPlan(plan)
+    resultado = parseFloat(incrementoPlan * resultado).toFixed(2)  
+    
+    //TOTAL lo guardo en prop enviada desde App.js
+    guardarResumen({
+      cotizacion: resultado,
+      datos
+    })
+    //puedo ver en la herramienta component en App.js los cambios en mi state
+    
   };
-
-  //COTIZACION
-  //como base usaremos 2000 dolares
-
-  let resultado = 2000
-
-  //obtener diferencia de años
-
-  const diferencia = obtenerDiferenciaYear(year)
-
-  //por cada año restar el 5%
-  resultado -= ((diferencia * 3) * resultado ) / 100
-  console.log(resultado)
-
-  //el americano subira un 15%, el europeo un 30% y el asiatico un 5%
-  resultado = calcularMarca(marca) * resultado
-  console.log(resultado)
-
-  //calcular incremento segun plan
-  const incrementoPlan = obtenerPlan(plan)
-  resultado = parseFloat(incrementoPlan * resultado).toFixed(2)
-
-  console.log(resultado)
-  
-
-  return (
-    <form
+    
+    return (
+      <form
      onSubmit={cotizarSeguro}
     >
       {error ? <Error>Complete todos los campos</Error> : null}
