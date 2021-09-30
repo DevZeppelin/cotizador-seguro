@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { calcularMarca, obtenerDiferenciaYear, obtenerPlan } from "../helper";
 
-const Formulario = ({guardarResumen}) => {
+const Formulario = ({guardarResumen, guardarCargando}) => {
   const [datos, guardarDatos] = useState({
     marca: "",
     year: "",
@@ -53,12 +53,24 @@ const Formulario = ({guardarResumen}) => {
     const incrementoPlan = obtenerPlan(plan)
     resultado = parseFloat(incrementoPlan * resultado).toFixed(2)  
     
-    //TOTAL lo guardo en prop enviada desde App.js
-    guardarResumen({
+    //Agrega Spinner
+    guardarCargando(true)
+    setTimeout(()=>{
+
+      //elimina el spinner
+      guardarCargando(false)
+     
+      //TOTAL lo guardo en prop enviada desde App.js, paso info al componente principal
+      guardarResumen({
       cotizacion: resultado,
       datos
     })
     //puedo ver en la herramienta component en App.js los cambios en mi state
+    
+
+    }, 3000)
+
+
     
   };
     
