@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
+//agrego libreria de animacion: npm i react-transition-group
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 //extraigo la cotizacion desde App.js
 const Resultado = ({cotizacion}) => {
@@ -10,11 +12,22 @@ const Resultado = ({cotizacion}) => {
             
             (cotizacion === 0)
             ? <Mensaje>Elige marca, año y plan</Mensaje>
-            : (
-            <ResultadoCotizacion>
-                <TextoCotizacion>El total es: $ {cotizacion}</TextoCotizacion>
-            </ResultadoCotizacion>
-            )
+            :   (
+                <TransitionGroup
+                    component="p"
+                    className="resultado"
+                >
+                    <CSSTransition
+                        classNames="resultado"
+                        key={cotizacion}
+                        timeout={{enter: 500, exit: 500}}
+                    >
+                        <ResultadoCotizacion>
+                            <TextoCotizacion>El total es: $ {cotizacion}</TextoCotizacion>
+                        </ResultadoCotizacion>
+                    </CSSTransition>
+                </TransitionGroup>
+                )
        
     )
 }

@@ -16,6 +16,8 @@ span.resultado {
   position: relative;
   width: 100%;
 }
+
+/* Etas clases al parecer las agrega Transition Group o hay que agregarlas manualkmente, la verdad bastante mala la libreria pero bue */
 .resultado-enter {
   transition: .5s;
 }

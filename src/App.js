@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Formulario from './components/Formulario';
 import Resumen from './components/Resumen';
 import Resultado from './components/Resultado';
+import Spinner from './components/Spinner';
 
 import styled from '@emotion/styled';
 
@@ -26,6 +27,11 @@ function App() {
 
   const {cotizacion,datos}=resumen
 
+  //nuevo state para le spinner
+
+  const [cargando ,guardarCargando] = useState(false)
+  //guardar cargando lo paso al componente Formulario
+
   return (
     <Contenedor>
       <Header
@@ -34,7 +40,11 @@ function App() {
       <ContenedorFormulario>
         <Formulario
           guardarResumen={guardarResumen}
+          guardarCargando={guardarCargando}
         /> 
+        {cargando ? <Spinner /> : null }
+
+        
         <Resumen
           datos={datos}
         />     
