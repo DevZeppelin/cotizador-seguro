@@ -24,7 +24,7 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
     });
   };
 
-  //Evento Submit
+  //Evento Submit, que no anduvo por lo que use onClick en el boton
   const cotizarSeguro = e => {
     e.preventDefault();
 
@@ -55,22 +55,19 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
     
     //Agrega Spinner
     guardarCargando(true)
+
     setTimeout(()=>{
 
-      //elimina el spinner
+      //elimina el spinner luego de la sentencia de tiempo 1500
       guardarCargando(false)
      
-      //TOTAL lo guardo en prop enviada desde App.js, paso info al componente principal
+      //lo guardo en prop enviada desde App.js. Paso info al componente principal
       guardarResumen({
       cotizacion: resultado,
       datos
     })
     //puedo ver en la herramienta component en App.js los cambios en mi state
-    
-
-    }, 3000)
-
-
+    }, 1500)
     
   };
     
