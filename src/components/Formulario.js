@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { calcularMarca, obtenerDiferenciaYear, obtenerPlan } from "../helper";
+import PropTypes from 'prop-types'
+
+
 
 const Formulario = ({guardarResumen, guardarCargando}) => {
   const [datos, guardarDatos] = useState({
@@ -63,8 +66,10 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
      
       //lo guardo en prop enviada desde App.js. Paso info al componente principal
       guardarResumen({
-      cotizacion: resultado,
+      cotizacion: Number(resultado),
       datos
+      //ERROR aca la consola me tira que "ccotizacion espera un string". Lo arreglo convirtiendo a number el resultado
+      //En App.js>En State Resumen tengo la cotizacion>voy a Formulario >GuardarResumen >Ahi lo convierto a number porque lo esta pasando como un string
     })
     //puedo ver en la herramienta component en App.js los cambios en mi state
     }, 1500)
@@ -126,6 +131,12 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
     </form>
   );
 }
+
+Formulario.propTypes = {
+  guardarResumen : PropTypes.func.isRequired,
+  guardarCargando : PropTypes.func.isRequired,
+}
+//Vi en App.js que eran las dos funciones a documentar
 
 export default Formulario;
 

@@ -40,7 +40,8 @@ function App() {
         />
 
         {cargando ? <Spinner /> : <Resumen datos={datos} />}
-        <Resultado cotizacion={cotizacion} />
+        {!cargando ?  <Resultado cotizacion={cotizacion} /> : null}
+       
       </ContenedorFormulario>
     </Contenedor>
   );
@@ -53,7 +54,7 @@ const Contenedor = styled.div`
   margin: 0 auto;
 `;
 
-const ContenedorFormulario = styled.form`
+const ContenedorFormulario = styled.div`
   background-color: #fff;
   padding: 3rem;
 `;

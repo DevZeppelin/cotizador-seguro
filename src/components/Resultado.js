@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 //agrego libreria de animacion: npm i react-transition-group
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import PropTypes from 'prop-types'
 
 //extraigo la cotizacion desde App.js
 const Resultado = ({cotizacion}) => {
@@ -14,16 +15,18 @@ const Resultado = ({cotizacion}) => {
             ? <Mensaje>Elige marca, año y plan</Mensaje>
             :   (
                 <TransitionGroup
-                    component="p"
+                    component="span"
                     className="resultado"
                 >
+                {/* ERROR: aca en consola me sale un p dentro de otro p, que es imposible por eso cambio el componente de Transition Group por un span, y creo u span que envuelva cotizacion en TextoCotizacion */}
+            
                     <CSSTransition
                         classNames="resultado"
                         key={cotizacion}
                         timeout={{enter: 500, exit: 500}}
                     >
                         <ResultadoCotizacion>
-                            <TextoCotizacion>El total es: $ {cotizacion}</TextoCotizacion>
+                        <TextoCotizacion>El total es: $ <span>{cotizacion}</span></TextoCotizacion>
                         </ResultadoCotizacion>
                     </CSSTransition>
                 </TransitionGroup>
@@ -31,6 +34,11 @@ const Resultado = ({cotizacion}) => {
        
     )
 }
+
+Resultado.propTypes = {
+    cotizacion : PropTypes.number.isRequired
+}
+// en propTypes no hay enteros ni float, todo es number
 
 export default Resultado
 
